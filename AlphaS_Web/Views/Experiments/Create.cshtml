@@ -1,4 +1,4 @@
-﻿@model AlphaS_Web.Models.Experiment
+﻿@model AlphaS_Web.Models.Utils.ExperimentViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -23,6 +23,9 @@
                 @Html.EditorFor(model => model.Modules)
             </div>
 
+            @Html.DropDownList("ModuleName", (IEnumerable<SelectListItem>)ViewBag.Modules, "Choose Module", htmlAttributes: new { @class = "form-control", @id = "ModuleName" })
+
+
             <div class="form-group">
                 <div class="col-md-4">
                     <input class="btn btn-default" type="button" id="btnAddModule" value="Add Module" />
@@ -37,73 +40,118 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $("#btnAddModule").on('click', function () {
             console.log("Adding module");
+            var ddl = document.getElementById("ModuleName");
+            var SelVal = ddl.value;
+            console.log("SelVal = " + SelVal);
+            var neaded_url = "/Experiments/AddModule/" + SelVal;
+            console.log("PartitialVeiw url : " + neaded_url);
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: neaded_url,
+                success: function (partialView) {
+                    $('#ModulesContainer').html(partialView);
+                }
+            });
+        });
+</script>
+
+
+    @{
+/*
+    <script type="text/javascript">
+        $("#btnGetVariables").on('click', function () {
             $.ajax({
                 async: true,
                 data: $('#form').serialize(),
                 type: "POST",
                 url: '/Experiments/AddModule',
                 success: function (partialView) {
+                    console.log("partialView: " + partialView);
                     $('#ModulesContainer').html(partialView);
                 }
             });
         });
     </script>
-@{ 
-    /*
-        <script type="text/javascript">
-            $("#btnGetVariables").on('click', function () {
-                $.ajax({
-                    async: true,
-                    data: $('#form').serialize(),
-                    type: "POST",
-                    url: '/Experiments/AddModule',
-                    success: function (partialView) {
-                        console.log("partialView: " + partialView);
-                        $('#ModulesContainer').html(partialView);
-                    }
-                });
+
+
+
+    <script type="text/javascript">
+        $("#ModuleName").change(function () {
+            //var getText = $('option:selected', this).text();
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Experiments/OpenVariables/',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#InputsContainer').html(partialView);
+                }
             });
-        </script>
+        });
+    </script>
 
 
-
-        <script type="text/javascript">
-            $("#ModuleName").change(function () {
-                //var getText = $('option:selected', this).text();
-                $.ajax({
-                    async: true,
-                    data: $('#form').serialize(),
-                    type: "POST",
-                    url: '/Experiments/OpenVariables/',
-                    success: function (partialView) {
-                        console.log("partialView: " + partialView);
-                        $('#InputsContainer').html(partialView);
-                    }
-                });
+    <script type="text/javascript">
+        $("#btnGetVariables").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Experiments/OpenVariables',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#InputsContainer').html(partialView);
+                }
             });
-        </script>
+        });
+    </script>
 
 
-        <script type="text/javascript">
-            $("#btnGetVariables").on('click', function () {
-                $.ajax({
-                    async: true,
-                    data: $('#form').serialize(),
-                    type: "POST",
-                    url: '/Experiments/OpenVariables',
-                    success: function (partialView) {
-                        console.log("partialView: " + partialView);
-                        $('#InputsContainer').html(partialView);
-                    }
-                });
-            });
-        </script>
-    */
-}
+
+
+
+
+
+<script type="text/javascript">
+$("#@("btnGetVariables"+Model.ModuleOrder)").on('click', function () {
+    var ddl = document.getElementById("@("ModuleName"+ Model.ModuleOrder)");
+    var SelVal = ddl.value;
+    console.log("SelVal = " + SelVal);
+    var neaded_url = "/Experiments/OpenVariables/" + SelVal;
+    console.log("PartitialVeiw url : " + neaded_url);
+    $.ajax({
+        async: true,
+        type: "POST",
+        url: neaded_url,
+        success: function (partialView) {
+            $('#@("InputModule"+Model.ModuleOrder)').html(partialView);
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+*/
+    }
 }

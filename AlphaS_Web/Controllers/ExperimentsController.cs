@@ -1,5 +1,6 @@
 ﻿using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
+using AlphaS_Web.Models.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -37,17 +38,19 @@ namespace AlphaS_Web.Controllers
         // GET: ExperimentsController/Create
         public ActionResult Create()
         {
-            ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleName", "ModuleName");
+            ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
             return View();
         }
 
         // POST: ExperimentsController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("OperatorId, StartTime, FinishTime, Modules")] Experiment experiment)
+        public ActionResult Create([Bind("OperatorId, StartTime, FinishTime, Modules")] ExperimentViewModel experimentViewModel)
         {
             try
             {
+                Experiment experiment = ExperimentFromViewModel(experimentViewModel);
+
                 _context.Create(experiment);
 
                 return RedirectToAction(nameof(Index));
@@ -102,16 +105,25 @@ namespace AlphaS_Web.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddModule([Bind("Modules")] Experiment experiment)
+        public async Task<ActionResult> AddModule(int id ,[Bind("Modules")] ExperimentViewModel experimentViewModel)
         {
             Console.WriteLine("IN ADD MODULE");
-            ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
 
-            ModuleInExperiment new_module = new ModuleInExperiment(experiment.Modules.Count + 1);
-            experiment.Modules.Add(new_module);
-            //experiment.Modules.Add(new ModuleInExperiment());
-            Console.WriteLine("experiment.Modules count = " + experiment.Modules.Count);
-            return PartialView("Modules", experiment);
+            int new_module_id = id;
+            Module module = _modules.Find(new_module_id);
+            string new_ModuleName = module.ModuleName;
+            Dictionary<string, string> new_input_dictionary = module.InputVariables;
+            List<MyKeyValuePair> new_input_pairs = new List<MyKeyValuePair>();
+            foreach(KeyValuePair<string, string> e in new_input_dictionary)
+            {
+                new_input_pairs.Add(new MyKeyValuePair(e.Key, ""));
+            }
+            ModuleInExperimentViewModel new_moduleViewModel = new ModuleInExperimentViewModel(new_ModuleName, experimentViewModel.Modules.Count + 1, new_input_pairs);
+
+            //ModuleInExperiment new_module = new ModuleInExperiment(new_ModuleName, experiment.Modules.Count + 1, new_OutputValues, new_InputValues);
+            experimentViewModel.Modules.Add(new_moduleViewModel);
+            Console.WriteLine("experiment.Modules count = " + experimentViewModel.Modules.Count);
+            return PartialView("Modules", experimentViewModel);
         }
 
         [HttpPost]
@@ -137,6 +149,37 @@ namespace AlphaS_Web.Controllers
             //moduleInExperiment.InputValues.Add(new ModuleInExperiment());
             return PartialView("InputValues", moduleInExperiment);
         }
+
+        private Experiment ExperimentFromViewModel(ExperimentViewModel experimentViewModel)
+        {
+            Experiment res = new Experiment();
+            res.OperatorId = experimentViewModel.OperatorId;
+            List<ModuleInExperiment> modules = new List<ModuleInExperiment>();
+            foreach(ModuleInExperimentViewModel e in experimentViewModel.Modules)
+            {
+                ModuleInExperiment new_module = ModuleinExperimentFromViewModel(e);
+                modules.Add(new_module);
+            }
+            res.Modules = modules;
+            return res;
+        }
+
+
+        private ModuleInExperiment ModuleinExperimentFromViewModel(ModuleInExperimentViewModel moduleInExperimentViewModel)
+        {
+            ModuleInExperiment res = new ModuleInExperiment();
+            res.ModuleName = moduleInExperimentViewModel.ModuleName;
+            res.ModuleOrder = moduleInExperimentViewModel.ModuleOrder;
+            Dictionary<string, string> inputValues = new Dictionary<string, string>();
+            foreach(MyKeyValuePair pair in moduleInExperimentViewModel.InputValues)
+            {
+                inputValues.Add(pair.Key, pair.Value);
+            }
+            res.InputValues = inputValues;
+            return res;
+        }
+
+
 
 
     }

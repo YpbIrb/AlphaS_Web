@@ -45,5 +45,14 @@ namespace AlphaS_Web.Models
             InputValues = new Dictionary<string, string>();
             ModuleOrder = moduleOrder;
         }
+
+        public ModuleInExperiment(string moduleName, int moduleOrder, 
+                                 Dictionary<string, string> outputValues, Dictionary<string, string> inputValues)
+        {
+            ModuleName = moduleName;
+            ModuleOrder = moduleOrder;
+            OutputValues = outputValues;
+            InputValues = inputValues;
+        }
     }
 }

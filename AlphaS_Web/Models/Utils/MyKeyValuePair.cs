@@ -15,5 +15,14 @@ namespace AlphaS_Web.Models.Utils
         [DisplayName("Описание")]
         public string Value { get; set; }
 
+        public MyKeyValuePair(string key, string value)
+        {
+            Key = key;
+            Value = value;
+        }
+
+        public MyKeyValuePair()
+        {
+        }
     }
 }
