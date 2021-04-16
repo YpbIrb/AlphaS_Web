@@ -1,0 +1,109 @@
+﻿@model AlphaS_Web.Models.Experiment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Experiment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OperatorId" class="control-lacd bel"></label>
+                <input asp-for="OperatorId" class="form-control" />
+                <span asp-validation-for="OperatorId" class="text-danger"></span>
+            </div>
+
+            <label asp-for="Modules" class="control-label"></label>
+            <div id="ModulesContainer">
+                @Html.EditorFor(model => model.Modules)
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4">
+                    <input class="btn btn-default" type="button" id="btnAddModule" value="Add Module" />
+                </div>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $("#btnAddModule").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Experiments/AddModule',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#ModulesContainer').html(partialView);
+                }
+            });
+        });
+    </script>
+@{ 
+    /*
+        <script type="text/javascript">
+            $("#btnGetVariables").on('click', function () {
+                $.ajax({
+                    async: true,
+                    data: $('#form').serialize(),
+                    type: "POST",
+                    url: '/Experiments/AddModule',
+                    success: function (partialView) {
+                        console.log("partialView: " + partialView);
+                        $('#ModulesContainer').html(partialView);
+                    }
+                });
+            });
+        </script>
+
+
+
+        <script type="text/javascript">
+            $("#ModuleName").change(function () {
+                //var getText = $('option:selected', this).text();
+                $.ajax({
+                    async: true,
+                    data: $('#form').serialize(),
+                    type: "POST",
+                    url: '/Experiments/OpenVariables/',
+                    success: function (partialView) {
+                        console.log("partialView: " + partialView);
+                        $('#InputsContainer').html(partialView);
+                    }
+                });
+            });
+        </script>
+
+
+        <script type="text/javascript">
+            $("#btnGetVariables").on('click', function () {
+                $.ajax({
+                    async: true,
+                    data: $('#form').serialize(),
+                    type: "POST",
+                    url: '/Experiments/OpenVariables',
+                    success: function (partialView) {
+                        console.log("partialView: " + partialView);
+                        $('#InputsContainer').html(partialView);
+                    }
+                });
+            });
+        </script>
+    */
+}
+}

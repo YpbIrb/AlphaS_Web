@@ -1,0 +1,78 @@
+﻿@model AlphaS_Web.Models.Module
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Module</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ModuleId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModuleId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ModuleName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModuleName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ModuleTypeName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ModuleTypeName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PathToExe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PathToExe)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InputVariables)
+        </dt>
+
+        @foreach (KeyValuePair<string, string> entry in Model.InputVariables)
+        {
+            <dd class="col-sm-10">
+                <div class="row">
+                    @Html.DisplayFor(model => entry.Key)
+                    @Html.DisplayFor(model => entry.Value)
+                </div>
+            </dd>
+            <dt class="col-sm-2"></dt>
+        }
+    <dd class="col-sm-10"></dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OutputVariables)
+        </dt>
+
+        @foreach (KeyValuePair<string, string> entry in Model.OutputVariables)
+        {
+            <dd class="col-sm-10">
+                <div class="row">
+                    @Html.DisplayFor(model => entry.Key)
+                    @Html.DisplayFor(model => entry.Value)
+                </div>
+            </dd>
+            <dt class="col-sm-2"></dt>
+        }
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
