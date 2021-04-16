@@ -1,24 +1,32 @@
 ﻿@model AlphaS_Web.Models.ModuleInExperiment
-@Html.EditorFor(model => model.InputValues)
+
+
+
+<div class="form-group">
+    Input Variables:
+</div>
+@foreach (var item in Model.InputValues)
+{
+    @Html.EditorFor(model => item)
+}
 
 
 @{
     /*
 
 
-    <div class="form-group">
-    Input Variables:
-    </div>
-
-    <div class="form-group">
-    @foreach(string e in ViewBag.InputVariables)
+    @foreach (var item in ViewBag.InputVariables)
     {
-
+    <span> @item </span>
     }
 
 
-    </div>
+    <div class="form-group">
+    @foreach (string e in ViewBag.InputVariables)
+    {
 
+    }
+    </div>
 
 
         */

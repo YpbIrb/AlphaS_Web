@@ -42,13 +42,13 @@
 
     <script type="text/javascript">
         $("#btnAddModule").on('click', function () {
+            console.log("Adding module");
             $.ajax({
                 async: true,
                 data: $('#form').serialize(),
                 type: "POST",
                 url: '/Experiments/AddModule',
                 success: function (partialView) {
-                    console.log("partialView: " + partialView);
                     $('#ModulesContainer').html(partialView);
                 }
             });

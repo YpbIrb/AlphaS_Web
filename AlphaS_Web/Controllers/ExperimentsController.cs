@@ -105,7 +105,7 @@ namespace AlphaS_Web.Controllers
         public async Task<ActionResult> AddModule([Bind("Modules")] Experiment experiment)
         {
             Console.WriteLine("IN ADD MODULE");
-            ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleName", "ModuleName");
+            ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
 
             ModuleInExperiment new_module = new ModuleInExperiment(experiment.Modules.Count + 1);
             experiment.Modules.Add(new_module);
@@ -116,18 +116,23 @@ namespace AlphaS_Web.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> OpenVariables([Bind("ModuleName, InputVariables")] ModuleInExperiment moduleInExperiment)
+        public async Task<ActionResult> OpenVariables(int id)
         {
-            Console.WriteLine("IN OpenVariables");
-            Module module = _modules.Find(moduleInExperiment.ModuleName);
+            int ModuleName = id;
 
+            Console.WriteLine("IN OpenVariables. moduleId = " + ModuleName);
+            Module module = _modules.Find(ModuleName);
+            ViewBag.InputVariables = new List<string>();
+            ModuleInExperiment moduleInExperiment = new ModuleInExperiment();
             List<string> variableNames = module.InputVariables.Keys.AsEnumerable().ToList();
             foreach(string e in variableNames)
             {
+                Console.WriteLine(e);
+                ViewBag.InputVariables.Add(e);
                 moduleInExperiment.InputValues.Add(e, "");
             }
             
-            //ViewBag.InputVariables = new SelectList(variableNames, "InputVariable", "InputVariable");
+            
 
             //moduleInExperiment.InputValues.Add(new ModuleInExperiment());
             return PartialView("InputValues", moduleInExperiment);
