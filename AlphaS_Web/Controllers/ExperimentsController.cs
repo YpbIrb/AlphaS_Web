@@ -112,13 +112,19 @@ namespace AlphaS_Web.Controllers
             int new_module_id = id;
             Module module = _modules.Find(new_module_id);
             string new_ModuleName = module.ModuleName;
-            Dictionary<string, string> new_input_dictionary = module.InputVariables;
+            List<ModuleVariable> new_input_variables = module.InputVariables;
+            List<ModuleVariable> new_output_variables = module.OutputVariables;
             List<MyKeyValuePair> new_input_pairs = new List<MyKeyValuePair>();
-            foreach(KeyValuePair<string, string> e in new_input_dictionary)
+            List<MyKeyValuePair> new_output_pairs = new List<MyKeyValuePair>();
+            foreach (ModuleVariable e in new_input_variables)
             {
-                new_input_pairs.Add(new MyKeyValuePair(e.Key, ""));
+                new_input_pairs.Add(new MyKeyValuePair(e.VariableName, e.VariableDefaultValue));
             }
-            ModuleInExperimentViewModel new_moduleViewModel = new ModuleInExperimentViewModel(new_ModuleName, experimentViewModel.Modules.Count + 1, new_input_pairs);
+            foreach (ModuleVariable e in new_output_variables)
+            {
+                new_output_pairs.Add(new MyKeyValuePair(e.VariableName, e.VariableDefaultValue));
+            }
+            ModuleInExperimentViewModel new_moduleViewModel = new ModuleInExperimentViewModel(new_ModuleName, experimentViewModel.Modules.Count + 1, new_input_pairs, new_output_pairs);
 
             //ModuleInExperiment new_module = new ModuleInExperiment(new_ModuleName, experiment.Modules.Count + 1, new_OutputValues, new_InputValues);
             experimentViewModel.Modules.Add(new_moduleViewModel);
@@ -126,6 +132,7 @@ namespace AlphaS_Web.Controllers
             return PartialView("Modules", experimentViewModel);
         }
 
+        /*
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> OpenVariables(int id)
@@ -136,19 +143,17 @@ namespace AlphaS_Web.Controllers
             Module module = _modules.Find(ModuleName);
             ViewBag.InputVariables = new List<string>();
             ModuleInExperiment moduleInExperiment = new ModuleInExperiment();
-            List<string> variableNames = module.InputVariables.Keys.AsEnumerable().ToList();
-            foreach(string e in variableNames)
+            List<ModuleVariable> input_variables = module.InputVariables;
+            foreach(ModuleVariable e in input_variables)
             {
                 Console.WriteLine(e);
                 ViewBag.InputVariables.Add(e);
                 moduleInExperiment.InputValues.Add(e, "");
             }
-            
-            
-
             //moduleInExperiment.InputValues.Add(new ModuleInExperiment());
             return PartialView("InputValues", moduleInExperiment);
         }
+        */
 
         private Experiment ExperimentFromViewModel(ExperimentViewModel experimentViewModel)
         {
@@ -171,11 +176,20 @@ namespace AlphaS_Web.Controllers
             res.ModuleName = moduleInExperimentViewModel.ModuleName;
             res.ModuleOrder = moduleInExperimentViewModel.ModuleOrder;
             Dictionary<string, string> inputValues = new Dictionary<string, string>();
-            foreach(MyKeyValuePair pair in moduleInExperimentViewModel.InputValues)
+            Dictionary<string, string> outputValues = new Dictionary<string, string>();
+            foreach (MyKeyValuePair pair in moduleInExperimentViewModel.InputValues)
             {
                 inputValues.Add(pair.Key, pair.Value);
             }
+
+            List<ModuleVariable> outputVariables = _modules.Find(moduleInExperimentViewModel.ModuleName).OutputVariables;
+            foreach (ModuleVariable e in outputVariables)
+            {
+                outputValues.Add(e.VariableName, e.VariableDefaultValue);
+            }
+
             res.InputValues = inputValues;
+            res.OutputValues = outputValues;
             return res;
         }
 

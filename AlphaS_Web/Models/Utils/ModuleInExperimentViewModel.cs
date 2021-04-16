@@ -13,15 +13,19 @@ namespace AlphaS_Web.Models.Utils
 
         public List<MyKeyValuePair> InputValues { get; set; }
 
-        public ModuleInExperimentViewModel(string moduleName, int moduleOrder, List<MyKeyValuePair> inputValues)
+        public List<MyKeyValuePair> OutputValues { get; set; }
+
+        public ModuleInExperimentViewModel(string moduleName, int moduleOrder, List<MyKeyValuePair> inputValues, List<MyKeyValuePair> outputValues)
         {
             ModuleName = moduleName;
             ModuleOrder = moduleOrder;
             InputValues = inputValues;
+            OutputValues = outputValues;
         }
 
         public ModuleInExperimentViewModel()
         {
+            OutputValues = new List<MyKeyValuePair>();
             InputValues = new List<MyKeyValuePair>();
         }
     }

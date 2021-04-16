@@ -42,14 +42,14 @@ namespace AlphaS_Web.Controllers
         // POST: ModulesController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("ModuleName, ModuleTypeName, PathToExe, Description, InputVariables, OutputVariables")] ModuleFromPage moduleFromPage)
+        public ActionResult Create([Bind("ModuleName, ModuleTypeName, PathToExe, Description, InputVariables, OutputVariables")] Module module)
         {
             try
             {
-                Module module = GetModuleFromModuleFromPage(moduleFromPage);
+                //Module module = GetModuleFromModuleFromPage(moduleFromPage);
 
 
-                Console.WriteLine("In Controller + ModuleName : " + module.ModuleName);
+                Console.WriteLine("Adding Module ModuleName : " + module.ModuleName);
 
                 _context.Create(module);
                 return RedirectToAction(nameof(Index));
@@ -106,22 +106,22 @@ namespace AlphaS_Web.Controllers
         
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddInputVariable([Bind("InputVariables")] ModuleFromPage module)
+        public async Task<ActionResult> AddInputVariable([Bind("InputVariables")] Module module)
         {
-            module.InputVariables.Add(new Models.Utils.MyKeyValuePair());
+            module.InputVariables.Add(new ModuleVariable());
             Console.WriteLine("module.InputVariables count = " + module.InputVariables.Count);
             return PartialView("InputVariables", module);
         }
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddOutputVariable([Bind("OutputVariables")] ModuleFromPage module)
+        public async Task<ActionResult> AddOutputVariable([Bind("OutputVariables")] Module module)
         {
-            module.OutputVariables.Add(new Models.Utils.MyKeyValuePair());
+            module.OutputVariables.Add(new ModuleVariable());
             return PartialView("OutputVariables", module);
         }
 
-
+        /*
         private Module GetModuleFromModuleFromPage(ModuleFromPage moduleFromPage)
         {
             Module res = new Module(moduleFromPage.ModuleId, moduleFromPage.ModuleName, 
@@ -140,7 +140,6 @@ namespace AlphaS_Web.Controllers
 
             return res;
         }
-
-
+        */
     }
 }

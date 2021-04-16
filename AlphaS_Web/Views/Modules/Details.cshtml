@@ -45,27 +45,30 @@
             @Html.DisplayNameFor(model => model.InputVariables)
         </dt>
 
-        @foreach (KeyValuePair<string, string> entry in Model.InputVariables)
+        @foreach (ModuleVariable entry in Model.InputVariables)
         {
             <dd class="col-sm-10">
                 <div class="row">
-                    @Html.DisplayFor(model => entry.Key)
-                    @Html.DisplayFor(model => entry.Value)
+                    @Html.DisplayFor(model => entry.VariableName)
+                    @Html.DisplayFor(model => entry.VariableDefaultValue)
+                    @Html.DisplayFor(model => entry.VariableDescription)
                 </div>
             </dd>
             <dt class="col-sm-2"></dt>
         }
-    <dd class="col-sm-10"></dd>
+        <dd class="col-sm-10"></dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OutputVariables)
         </dt>
 
-        @foreach (KeyValuePair<string, string> entry in Model.OutputVariables)
+
+        @foreach (ModuleVariable entry in Model.OutputVariables)
         {
             <dd class="col-sm-10">
                 <div class="row">
-                    @Html.DisplayFor(model => entry.Key)
-                    @Html.DisplayFor(model => entry.Value)
+                    @Html.DisplayFor(model => entry.VariableName)
+                    @Html.DisplayFor(model => entry.VariableDefaultValue)
+                    @Html.DisplayFor(model => entry.VariableDescription)
                 </div>
             </dd>
             <dt class="col-sm-2"></dt>

@@ -25,10 +25,10 @@ namespace AlphaS_Web.Models
         public string ModuleTypeName { get; set; }
 
         [BsonElement("Input_Variables")]
-        public Dictionary<string, string> InputVariables { get; set; }
+        public List<ModuleVariable> InputVariables { get; set; }
 
         [BsonElement("Output_Variables")]
-        public Dictionary<string, string> OutputVariables { get; set; }
+        public List<ModuleVariable> OutputVariables { get; set; }
 
 
         [BsonElement("Path_To_Exe")]
@@ -44,13 +44,14 @@ namespace AlphaS_Web.Models
             ModuleTypeName = moduleTypeName;
             PathToExe = pathToExe;
             Description = description;
-            InputVariables = new Dictionary<string, string>();
-            OutputVariables = new Dictionary<string, string>();
+            InputVariables = new List<ModuleVariable>();
+            OutputVariables = new List<ModuleVariable>();
         }
 
-
-
-
-
+        public Module()
+        {
+            InputVariables = new List<ModuleVariable>();
+            OutputVariables = new List<ModuleVariable>();
+        }
     }
 }
