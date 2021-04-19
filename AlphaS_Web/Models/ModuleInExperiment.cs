@@ -5,6 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AlphaS_Web.Models
@@ -12,24 +13,31 @@ namespace AlphaS_Web.Models
     public class ModuleInExperiment
     {
         [BsonId]
+        [JsonIgnore]
         public ObjectId _id { get; set; }
 
         [BsonElement("Module_Name")]
+        [JsonPropertyName("Module_Name")]
         public string ModuleName { get; set; }
 
         [BsonElement("Module_Order")]
+        [JsonPropertyName("Module_Order")]
         public int ModuleOrder { get; set; }
 
         [BsonElement("Start_Time")]
+        [JsonPropertyName("Start_Time")]
         public DateTime StartTime { get; set; }
 
         [BsonElement("Finish_Time")]
+        [JsonPropertyName("Finish_Time")]
         public DateTime FinishTime { get; set; }
 
         [BsonElement("Output_Values")]
+        [JsonPropertyName("Output_Values")]
         public Dictionary<string, string> OutputValues { get; set; }
 
         [BsonElement("Input_Values")]
+        [JsonPropertyName("Input_Values")]
         public Dictionary<string, string> InputValues { get; set; }
 
 
