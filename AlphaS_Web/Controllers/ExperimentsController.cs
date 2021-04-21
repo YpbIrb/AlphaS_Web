@@ -1,6 +1,7 @@
 ﻿using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
 using AlphaS_Web.Models.Utils;
+using AlphaS_Web.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -49,7 +50,7 @@ namespace AlphaS_Web.Controllers
         {
             try
             {
-                Experiment experiment = ExperimentFromViewModel(experimentViewModel);
+                Experiment experiment = FromViewModelConverter.ExperimentFromViewModel(experimentViewModel, _modules);
 
                 _context.Create(experiment);
 
@@ -57,6 +58,7 @@ namespace AlphaS_Web.Controllers
             }
             catch
             {
+                ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
                 return View();
             }
         }
@@ -154,7 +156,7 @@ namespace AlphaS_Web.Controllers
             return PartialView("InputValues", moduleInExperiment);
         }
         */
-
+        /*
         private Experiment ExperimentFromViewModel(ExperimentViewModel experimentViewModel)
         {
             Experiment res = new Experiment();
@@ -192,7 +194,7 @@ namespace AlphaS_Web.Controllers
             res.OutputValues = outputValues;
             return res;
         }
-
+        */
 
 
 

@@ -12,7 +12,7 @@ namespace AlphaS_Web.Models.Utils
         [DisplayName("Переменная")]
         public string Key { get; set; }
 
-        [DisplayName("Описание")]
+        [DisplayName("Значение")]
         public string Value { get; set; }
 
         public MyKeyValuePair(string key, string value)

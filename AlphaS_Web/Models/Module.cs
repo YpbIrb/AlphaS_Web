@@ -13,9 +13,11 @@ namespace AlphaS_Web.Models
 {
     public class Module
     {
+        
         [BsonId]
         [JsonIgnore]
         public ObjectId _id { get; set; }
+        
 
         [BsonElement("Module_Id")]
         [JsonPropertyName("Module_Id")]

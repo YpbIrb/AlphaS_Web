@@ -20,6 +20,8 @@ namespace AlphaS_Web.Contexts
             var database = client.GetDatabase(settings.DatabaseName);
 
             _experiments = database.GetCollection<Experiment>("Experiments");
+
+
         }
 
 
