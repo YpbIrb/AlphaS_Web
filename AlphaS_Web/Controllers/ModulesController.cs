@@ -56,6 +56,7 @@ namespace AlphaS_Web.Controllers
             }
             catch
             {
+                //todo нормальный отлов ошибки, и предупреждение о том, что не правильно
                 return View();
             }
         }

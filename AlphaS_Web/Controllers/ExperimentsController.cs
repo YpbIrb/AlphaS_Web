@@ -16,11 +16,14 @@ namespace AlphaS_Web.Controllers
     {
         ExperimentContext _context;
         ModuleContext _modules;
+        ExperimentPresetContext _presets;
 
-        public ExperimentsController(ExperimentContext experimenContext, ModuleContext modules)
+
+        public ExperimentsController(ExperimentContext experimenContext, ModuleContext modules, ExperimentPresetContext presets)
         {
             _context = experimenContext;
             _modules = modules;
+            _presets = presets;
         }
 
         // GET: ExperimentsController
@@ -33,13 +36,15 @@ namespace AlphaS_Web.Controllers
         // GET: ExperimentsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+
+            return View(_context.Find(id));
         }
 
         // GET: ExperimentsController/Create
         public ActionResult Create()
         {
             ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
+            ViewBag.Presets = new SelectList(_presets.GetAll(), "PresetName", "PresetName");
             return View();
         }
 
@@ -50,7 +55,7 @@ namespace AlphaS_Web.Controllers
         {
             try
             {
-                Experiment experiment = FromViewModelConverter.ExperimentFromViewModel(experimentViewModel, _modules);
+                Experiment experiment = ViewModelConverter.ExperimentFromViewModel(experimentViewModel, _modules);
 
                 _context.Create(experiment);
 
@@ -58,6 +63,7 @@ namespace AlphaS_Web.Controllers
             }
             catch
             {
+                ViewBag.Presets = new SelectList(_presets.GetAll(), "PresetName", "PresetName");
                 ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
                 return View();
             }
@@ -87,7 +93,7 @@ namespace AlphaS_Web.Controllers
         // GET: ExperimentsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(_context.Find(id));
         }
 
         // POST: ExperimentsController/Delete/5
@@ -97,6 +103,7 @@ namespace AlphaS_Web.Controllers
         {
             try
             {
+                
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -109,7 +116,7 @@ namespace AlphaS_Web.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> AddModule(int id ,[Bind("Modules")] ExperimentViewModel experimentViewModel)
         {
-            Console.WriteLine("IN ADD MODULE");
+            Console.WriteLine("IN AddModule");
 
             int new_module_id = id;
             Module module = _modules.Find(new_module_id);
@@ -133,6 +140,25 @@ namespace AlphaS_Web.Controllers
             Console.WriteLine("experiment.Modules count = " + experimentViewModel.Modules.Count);
             return PartialView("Modules", experimentViewModel);
         }
+
+        public async Task<ActionResult> AddPreset(string id, [Bind("Modules")] ExperimentViewModel experimentViewModel)
+        {
+            Console.WriteLine("IN AddPreset");
+
+            
+            ExperimentPreset preset = _presets.Find(id);
+
+            foreach(ModuleInExperiment module in preset.Modules)
+            {
+
+                experimentViewModel.Modules.Add(ViewModelConverter.ViewModelToModuleInExperiment(module));
+            }
+
+            Console.WriteLine("experiment.Modules count = " + experimentViewModel.Modules.Count);
+            return PartialView("Modules", experimentViewModel);
+        }
+
+
 
         /*
         [HttpPost]

@@ -48,7 +48,7 @@ namespace AlphaS_Web
             services.AddSingleton<ModuleContext>();
             services.AddSingleton<ModuleTypeContext>();
             services.AddSingleton<ExperimentContext>();
-
+            services.AddSingleton<ExperimentPresetContext>();
             services.AddSwaggerGen();
 
 

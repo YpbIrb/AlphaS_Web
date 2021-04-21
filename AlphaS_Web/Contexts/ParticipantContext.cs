@@ -50,20 +50,20 @@ namespace AlphaS_Web.Contexts
         }
 
         public Participant Find(int id) =>
-            _participants.Find(part => part.ID == id).SingleOrDefault();
+            _participants.Find(part => part.ParticipantId == id).SingleOrDefault();
 
         public Participant Update(int id, ParticipantCreateRequest participantCR) {
 
             Participant NewPart = new Participant(id, participantCR.Birth_Date, participantCR.Gender, participantCR.Nationality, participantCR.AdditionalInfo);
-            Participant OldPart = _participants.Find(part => part.ID == id).SingleOrDefault();
+            Participant OldPart = _participants.Find(part => part.ParticipantId == id).SingleOrDefault();
             NewPart._id = OldPart._id;
-            _participants.ReplaceOne(part => part.ID == id, NewPart);
+            _participants.ReplaceOne(part => part.ParticipantId == id, NewPart);
             return NewPart;
         }
             
 
         public void Delete(int id) =>
-            _participants.DeleteOne(part => part.ID == id);
+            _participants.DeleteOne(part => part.ParticipantId == id);
 
         private Participant GetParticipantFromCR(ParticipantCreateRequest participantCR)
         {

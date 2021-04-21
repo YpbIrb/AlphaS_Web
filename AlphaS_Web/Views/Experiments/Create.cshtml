@@ -13,7 +13,7 @@
         <form asp-action="Create" id="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OperatorId" class="control-lacd bel"></label>
+                <label asp-for="OperatorId" class="control-label"></label>
                 <input asp-for="OperatorId" class="form-control" />
                 <span asp-validation-for="OperatorId" class="text-danger"></span>
             </div>
@@ -25,10 +25,13 @@
 
             @Html.DropDownList("ModuleName", (IEnumerable<SelectListItem>)ViewBag.Modules, "Choose Module", htmlAttributes: new { @class = "form-control", @id = "ModuleName" })
 
-
+            @Html.DropDownList("PresetName", (IEnumerable<SelectListItem>)ViewBag.Presets, "Choose Preset", htmlAttributes: new { @class = "form-control", @id = "PresetName" })
             <div class="form-group">
                 <div class="col-md-4">
                     <input class="btn btn-default" type="button" id="btnAddModule" value="Add Module" />
+                </div>
+                <div class="col-md-4">
+                    <input class="btn btn-default" type="button" id="btnAddPreset" value="Add Preset" />
                 </div>
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -47,7 +50,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script type="text/javascript">
+    <script type="text/javascript">
         $("#btnAddModule").on('click', function () {
             console.log("Adding module");
             var ddl = document.getElementById("ModuleName");
@@ -65,20 +68,23 @@
                 }
             });
         });
-</script>
+    </script>
 
 
-    @{
-/*
     <script type="text/javascript">
-        $("#btnGetVariables").on('click', function () {
+        $("#btnAddPreset").on('click', function () {
+            console.log("Adding preset");
+            var ddl = document.getElementById("PresetName");
+            var SelVal = ddl.value;
+            console.log("SelVal = " + SelVal);
+            var neaded_url = "/Experiments/AddPreset/" + SelVal;
+            console.log("PartitialVeiw url : " + neaded_url);
             $.ajax({
                 async: true,
                 data: $('#form').serialize(),
                 type: "POST",
-                url: '/Experiments/AddModule',
+                url: neaded_url,
                 success: function (partialView) {
-                    console.log("partialView: " + partialView);
                     $('#ModulesContainer').html(partialView);
                 }
             });
@@ -86,62 +92,80 @@
     </script>
 
 
+    @{
+        /*
+            <script type="text/javascript">
+                $("#btnGetVariables").on('click', function () {
+                    $.ajax({
+                        async: true,
+                        data: $('#form').serialize(),
+                        type: "POST",
+                        url: '/Experiments/AddModule',
+                        success: function (partialView) {
+                            console.log("partialView: " + partialView);
+                            $('#ModulesContainer').html(partialView);
+                        }
+                    });
+                });
+            </script>
 
-    <script type="text/javascript">
-        $("#ModuleName").change(function () {
-            //var getText = $('option:selected', this).text();
+
+
+            <script type="text/javascript">
+                $("#ModuleName").change(function () {
+                    //var getText = $('option:selected', this).text();
+                    $.ajax({
+                        async: true,
+                        data: $('#form').serialize(),
+                        type: "POST",
+                        url: '/Experiments/OpenVariables/',
+                        success: function (partialView) {
+                            console.log("partialView: " + partialView);
+                            $('#InputsContainer').html(partialView);
+                        }
+                    });
+                });
+            </script>
+
+
+            <script type="text/javascript">
+                $("#btnGetVariables").on('click', function () {
+                    $.ajax({
+                        async: true,
+                        data: $('#form').serialize(),
+                        type: "POST",
+                        url: '/Experiments/OpenVariables',
+                        success: function (partialView) {
+                            console.log("partialView: " + partialView);
+                            $('#InputsContainer').html(partialView);
+                        }
+                    });
+                });
+            </script>
+
+
+
+
+
+
+
+        <script type="text/javascript">
+        $("#@("btnGetVariables"+Model.ModuleOrder)").on('click', function () {
+            var ddl = document.getElementById("@("ModuleName"+ Model.ModuleOrder)");
+            var SelVal = ddl.value;
+            console.log("SelVal = " + SelVal);
+            var neaded_url = "/Experiments/OpenVariables/" + SelVal;
+            console.log("PartitialVeiw url : " + neaded_url);
             $.ajax({
                 async: true,
-                data: $('#form').serialize(),
                 type: "POST",
-                url: '/Experiments/OpenVariables/',
+                url: neaded_url,
                 success: function (partialView) {
-                    console.log("partialView: " + partialView);
-                    $('#InputsContainer').html(partialView);
+                    $('#@("InputModule"+Model.ModuleOrder)').html(partialView);
                 }
             });
         });
-    </script>
-
-
-    <script type="text/javascript">
-        $("#btnGetVariables").on('click', function () {
-            $.ajax({
-                async: true,
-                data: $('#form').serialize(),
-                type: "POST",
-                url: '/Experiments/OpenVariables',
-                success: function (partialView) {
-                    console.log("partialView: " + partialView);
-                    $('#InputsContainer').html(partialView);
-                }
-            });
-        });
-    </script>
-
-
-
-
-
-
-
-<script type="text/javascript">
-$("#@("btnGetVariables"+Model.ModuleOrder)").on('click', function () {
-    var ddl = document.getElementById("@("ModuleName"+ Model.ModuleOrder)");
-    var SelVal = ddl.value;
-    console.log("SelVal = " + SelVal);
-    var neaded_url = "/Experiments/OpenVariables/" + SelVal;
-    console.log("PartitialVeiw url : " + neaded_url);
-    $.ajax({
-        async: true,
-        type: "POST",
-        url: neaded_url,
-        success: function (partialView) {
-            $('#@("InputModule"+Model.ModuleOrder)').html(partialView);
-        }
-    });
-});
-</script>
+        </script>
 
 
 
@@ -152,6 +176,6 @@ $("#@("btnGetVariables"+Model.ModuleOrder)").on('click', function () {
 
 
 
-*/
+        */
     }
 }

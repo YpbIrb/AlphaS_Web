@@ -3,6 +3,7 @@ using AlphaS_Web.Models;
 using AlphaS_Web.Models.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace AlphaS_Web.Controllers
     {
 
         private readonly ParticipantContext _context;
+        private SelectList Genders;
 
         public ParticipantsController (ParticipantContext participantService)
         {
             _context = participantService;
+            Genders = new SelectList(new[] { "М", "Ж" });
         }
 
 
@@ -37,6 +40,8 @@ namespace AlphaS_Web.Controllers
         // GET: ParticipantController/Create
         public ActionResult Create()
         {
+            
+            ViewBag.Genders = Genders;
             return View();
         }
 
@@ -47,12 +52,20 @@ namespace AlphaS_Web.Controllers
         {
             try
             {
-
-                _context.Create(participantCR);
+                if (ModelState.IsValid)
+                {
+                    _context.Create(participantCR);
+                } 
+                else
+                {
+                    ViewBag.Genders = Genders;
+                    return View();
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.Genders = Genders;
                 return View();
             }
         }
@@ -60,6 +73,7 @@ namespace AlphaS_Web.Controllers
         // GET: ParticipantController/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Genders = Genders;
             Participant part = _context.Find(id);
             return View(part);
         }
@@ -82,6 +96,7 @@ namespace AlphaS_Web.Controllers
             }
             catch (Exception e)
             {
+                ViewBag.Genders = Genders;
                 Console.WriteLine(e.Message);
                 return View();
             }

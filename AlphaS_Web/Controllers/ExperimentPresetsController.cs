@@ -53,7 +53,7 @@ namespace AlphaS_Web.Controllers
         {
             try
             {
-                ExperimentPreset experimentPreset = FromViewModelConverter.PresetFromViewModel(experimentPresetViewModel, _modules);
+                ExperimentPreset experimentPreset = ViewModelConverter.PresetFromViewModel(experimentPresetViewModel, _modules);
                 _context.Create(experimentPreset);
 
                 return RedirectToAction(nameof(Index));

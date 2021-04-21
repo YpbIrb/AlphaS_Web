@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlphaS_Web.Utils
 {
-    public static class FromViewModelConverter
+    public static class ViewModelConverter
     {
 
         public static ExperimentPreset PresetFromViewModel(ExperimentPresetViewModel presetViewModel, ModuleContext _modules)
@@ -64,7 +64,27 @@ namespace AlphaS_Web.Utils
             return res;
         }
 
+        public static ModuleInExperimentViewModel ViewModelToModuleInExperiment(ModuleInExperiment moduleInExperiment)
+        {
+            ModuleInExperimentViewModel res = new ModuleInExperimentViewModel();
+            res.ModuleName = moduleInExperiment.ModuleName;
+            res.ModuleOrder = moduleInExperiment.ModuleOrder;
+            List<MyKeyValuePair> inputValues = new List<MyKeyValuePair>();
+            List<MyKeyValuePair> outputValues = new List<MyKeyValuePair>();
+            foreach (KeyValuePair<string, string> pair in moduleInExperiment.InputValues)
+            {
+                inputValues.Add(new MyKeyValuePair(pair.Key, pair.Value));
+            }
 
+            foreach (KeyValuePair<string, string> pair in moduleInExperiment.OutputValues)
+            {
+                outputValues.Add(new MyKeyValuePair(pair.Key, pair.Value));
+            }
+
+            res.InputValues = inputValues;
+            res.OutputValues = outputValues;
+            return res;
+        }
 
 
 

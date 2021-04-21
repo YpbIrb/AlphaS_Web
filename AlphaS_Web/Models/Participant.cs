@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -17,29 +19,37 @@ namespace AlphaS_Web.Models
 
         [BsonElement("Participant_Id")]
         [JsonPropertyName("Participant_Id")]
-        public int ID { get; set; }
+        [DisplayName("Id испытуемого")]
+        public int ParticipantId { get; set; }
 
         [JsonPropertyName("Birth_Date")]
         [BsonElement("Birth_Date")]
+        [Required(ErrorMessage = "Birth_Date is required.")]
+        [DisplayName("Дата рождения")]
         public DateTime Birth_Date { get; set; }
 
         [BsonElement("Gender")]
         [JsonPropertyName("Gender")]
+        [Required(ErrorMessage = "Gender is required.")]
+        [DisplayName("Пол")]
         public string Gender { get; set; }
 
         [BsonElement("Nationality")]
         [JsonPropertyName("Nationality")]
+        [Required(ErrorMessage = "Nationality is required.")]
+        [DisplayName("Национальность")]
         public string Nationality { get; set; }
 
         [BsonElement("Additional_Info")]
         [JsonPropertyName("Additional_Info")]
+        [DisplayName("Дополнительная информация")]
         public string AdditionalInfo { get; set; }
 
 
 
         public Participant(Participant _participant)
         {
-            ID = _participant.ID;
+            ParticipantId = _participant.ParticipantId;
             Birth_Date = _participant.Birth_Date;
             Gender = _participant.Gender;
             Nationality = _participant.Nationality;
@@ -48,7 +58,7 @@ namespace AlphaS_Web.Models
 
         public Participant(int id, DateTime birth_Date, string gender, string nationality, string addtitionalInfo)
         {
-            ID = id;
+            ParticipantId = id;
             Birth_Date = birth_Date;
             Gender = gender;
             Nationality = nationality;

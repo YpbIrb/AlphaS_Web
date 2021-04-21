@@ -12,10 +12,11 @@ namespace AlphaS_Web.Models
 {
     public class ParticipantInExperiment 
     {
+        /*
         [BsonId]
         [JsonIgnore]
         public ObjectId _id { get; set; }
-
+        */
 
         [BsonElement("Participant_Id")]
         [JsonPropertyName("Participant_Id")]
