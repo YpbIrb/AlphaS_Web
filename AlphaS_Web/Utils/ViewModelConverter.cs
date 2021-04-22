@@ -29,6 +29,7 @@ namespace AlphaS_Web.Utils
         public static Experiment ExperimentFromViewModel(ExperimentViewModel experimentViewModel, ModuleContext _modules)
         {
             Experiment res = new Experiment();
+            res.PresetName = experimentViewModel.PresetName;
             res.OperatorId = experimentViewModel.OperatorId;
             List<ModuleInExperiment> modules = new List<ModuleInExperiment>();
             foreach (ModuleInExperimentViewModel e in experimentViewModel.Modules)

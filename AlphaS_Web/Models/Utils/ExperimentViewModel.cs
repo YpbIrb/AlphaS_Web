@@ -8,11 +8,14 @@ namespace AlphaS_Web.Models.Utils
 {
     public class ExperimentViewModel
     {
-        [DisplayName("Id оператора")]
+        [DisplayName("Operator Id")]
         public int OperatorId { get; set; }
 
-        [DisplayName("Модули")]
+        [DisplayName("Modules")]
         public List<ModuleInExperimentViewModel> Modules { get; set; }
+
+        [DisplayName("Preset")]
+        public string PresetName { get; set; }
 
         public ExperimentViewModel()
         {

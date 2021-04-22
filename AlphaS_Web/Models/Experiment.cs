@@ -27,10 +27,17 @@ namespace AlphaS_Web.Models
         [DisplayName("Id оператора")]
         public int OperatorId { get; set; }
 
+        [BsonElement("Preset_Name")]
+        [JsonPropertyName("Preset_Name")]
+        [DisplayName("Название пресета")]
+        public string PresetName { get; set; }
+
+
         [BsonElement("First_Participant")]
         [JsonPropertyName("First_Participant")]
         [DisplayName("Первый участник")]
         public ParticipantInExperiment FirstParticipant { get; set; }
+
 
         [BsonElement("Second_Participant")]
         [JsonPropertyName("Second_Participant")]

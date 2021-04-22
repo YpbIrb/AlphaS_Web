@@ -51,7 +51,7 @@ namespace AlphaS_Web.Controllers
         // POST: ExperimentsController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("OperatorId, StartTime, FinishTime, Modules")] ExperimentViewModel experimentViewModel)
+        public ActionResult Create([Bind("OperatorId, PresetName, Modules")] ExperimentViewModel experimentViewModel)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace AlphaS_Web.Controllers
         {
             Console.WriteLine("IN AddPreset");
 
-            
+            experimentViewModel.PresetName = id;
             ExperimentPreset preset = _presets.Find(id);
 
             foreach(ModuleInExperiment module in preset.Modules)

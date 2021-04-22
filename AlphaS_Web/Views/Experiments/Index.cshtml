@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.OperatorId)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.PresetName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StartTime)
             </th>
             <th>
@@ -37,15 +40,18 @@
                 @Html.DisplayFor(modelItem => item.OperatorId)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.PresetName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.StartTime)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FinishTime)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ExperimentId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ExperimentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ExperimentId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ExperimentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ExperimentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ExperimentId })
             </td>
         </tr>
 }
