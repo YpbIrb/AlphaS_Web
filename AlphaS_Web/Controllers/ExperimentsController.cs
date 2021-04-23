@@ -1,8 +1,11 @@
-﻿using AlphaS_Web.Contexts;
+﻿using AlphaS_Web.Areas.Identity.Data;
+using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
 using AlphaS_Web.Models.Utils;
 using AlphaS_Web.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -17,13 +20,15 @@ namespace AlphaS_Web.Controllers
         ExperimentContext _context;
         ModuleContext _modules;
         ExperimentPresetContext _presets;
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public ExperimentsController(ExperimentContext experimenContext, ModuleContext modules, ExperimentPresetContext presets)
+        public ExperimentsController(ExperimentContext experimenContext, ModuleContext modules, ExperimentPresetContext presets, UserManager<ApplicationUser> userManager)
         {
             _context = experimenContext;
             _modules = modules;
             _presets = presets;
+            _userManager = userManager;
         }
 
         // GET: ExperimentsController
@@ -41,6 +46,7 @@ namespace AlphaS_Web.Controllers
         }
 
         // GET: ExperimentsController/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
@@ -50,12 +56,17 @@ namespace AlphaS_Web.Controllers
 
         // POST: ExperimentsController/Create
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("OperatorId, PresetName, Modules")] ExperimentViewModel experimentViewModel)
+        public ActionResult Create([Bind("PresetName, Modules")] ExperimentViewModel experimentViewModel)
         {
             try
             {
+                int user_id = _userManager.GetUserAsync(HttpContext.User).Result.UserId;
+
                 Experiment experiment = ViewModelConverter.ExperimentFromViewModel(experimentViewModel, _modules);
+
+                experiment.OperatorId = user_id;
 
                 _context.Create(experiment);
 
@@ -70,6 +81,7 @@ namespace AlphaS_Web.Controllers
         }
 
         // GET: ExperimentsController/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             return View();
@@ -77,6 +89,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ExperimentsController/Edit/5
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -91,6 +104,7 @@ namespace AlphaS_Web.Controllers
         }
 
         // GET: ExperimentsController/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             return View(_context.Find(id));
@@ -98,6 +112,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ExperimentsController/Delete/5
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
@@ -157,72 +172,5 @@ namespace AlphaS_Web.Controllers
             Console.WriteLine("experiment.Modules count = " + experimentViewModel.Modules.Count);
             return PartialView("Modules", experimentViewModel);
         }
-
-
-
-        /*
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> OpenVariables(int id)
-        {
-            int ModuleName = id;
-
-            Console.WriteLine("IN OpenVariables. moduleId = " + ModuleName);
-            Module module = _modules.Find(ModuleName);
-            ViewBag.InputVariables = new List<string>();
-            ModuleInExperiment moduleInExperiment = new ModuleInExperiment();
-            List<ModuleVariable> input_variables = module.InputVariables;
-            foreach(ModuleVariable e in input_variables)
-            {
-                Console.WriteLine(e);
-                ViewBag.InputVariables.Add(e);
-                moduleInExperiment.InputValues.Add(e, "");
-            }
-            //moduleInExperiment.InputValues.Add(new ModuleInExperiment());
-            return PartialView("InputValues", moduleInExperiment);
-        }
-        */
-        /*
-        private Experiment ExperimentFromViewModel(ExperimentViewModel experimentViewModel)
-        {
-            Experiment res = new Experiment();
-            res.OperatorId = experimentViewModel.OperatorId;
-            List<ModuleInExperiment> modules = new List<ModuleInExperiment>();
-            foreach(ModuleInExperimentViewModel e in experimentViewModel.Modules)
-            {
-                ModuleInExperiment new_module = ModuleinExperimentFromViewModel(e);
-                modules.Add(new_module);
-            }
-            res.Modules = modules;
-            return res;
-        }
-
-
-        private ModuleInExperiment ModuleinExperimentFromViewModel(ModuleInExperimentViewModel moduleInExperimentViewModel)
-        {
-            ModuleInExperiment res = new ModuleInExperiment();
-            res.ModuleName = moduleInExperimentViewModel.ModuleName;
-            res.ModuleOrder = moduleInExperimentViewModel.ModuleOrder;
-            Dictionary<string, string> inputValues = new Dictionary<string, string>();
-            Dictionary<string, string> outputValues = new Dictionary<string, string>();
-            foreach (MyKeyValuePair pair in moduleInExperimentViewModel.InputValues)
-            {
-                inputValues.Add(pair.Key, pair.Value);
-            }
-
-            List<ModuleVariable> outputVariables = _modules.Find(moduleInExperimentViewModel.ModuleName).OutputVariables;
-            foreach (ModuleVariable e in outputVariables)
-            {
-                outputValues.Add(e.VariableName, e.VariableDefaultValue);
-            }
-
-            res.InputValues = inputValues;
-            res.OutputValues = outputValues;
-            return res;
-        }
-        */
-
-
-
     }
 }

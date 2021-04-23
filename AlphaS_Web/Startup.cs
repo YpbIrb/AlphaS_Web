@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using AspNetCore.Identity.Mongo;
+using AlphaS_Web.Areas.Identity.Data;
+using AspNetCore.Identity.Mongo.Model;
 
 namespace AlphaS_Web
 {
@@ -29,6 +32,8 @@ namespace AlphaS_Web
         {
             services.Configure<AlphaSDatabaseSettings>(Configuration.GetSection(nameof(AlphaSDatabaseSettings)));
 
+            
+
             services.AddRazorPages()
             .AddRazorPagesOptions(options =>
             {
@@ -42,6 +47,18 @@ namespace AlphaS_Web
             });
             
             services.AddSingleton<IAlphaSDatabaseSettings>(x => x.GetRequiredService<IOptions<AlphaSDatabaseSettings>>().Value);
+
+            services.AddIdentityMongoDbProvider<ApplicationUser, MongoRole>(identityOptions =>
+            {
+                identityOptions.Password.RequiredLength = 6;
+                identityOptions.Password.RequireLowercase = false;
+                identityOptions.Password.RequireUppercase = false;
+                identityOptions.Password.RequireNonAlphanumeric = false;
+                identityOptions.Password.RequireDigit = false;
+            }, mongoIdentityOptions => {
+                mongoIdentityOptions.ConnectionString = "mongodb://mongo:27017/AlphaSDB";
+            });
+
 
             services.AddSingleton<CounterContext>();
             services.AddSingleton<ParticipantContext>();
@@ -75,6 +92,7 @@ namespace AlphaS_Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

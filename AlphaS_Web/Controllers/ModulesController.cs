@@ -1,6 +1,7 @@
 ﻿using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
 using AlphaS_Web.Models.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -34,6 +35,7 @@ namespace AlphaS_Web.Controllers
         }
 
         // GET: ModulesController/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -41,6 +43,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ModulesController/Create
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind("ModuleName, ModuleTypeName, PathToExe, Description, InputVariables, OutputVariables")] Module module)
         {
@@ -61,6 +64,7 @@ namespace AlphaS_Web.Controllers
             }
         }
 
+        [Authorize]
         // GET: ModulesController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -69,6 +73,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ModulesController/Edit/5
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -90,6 +95,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ModulesController/Delete/5
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
@@ -106,6 +112,7 @@ namespace AlphaS_Web.Controllers
 
         
         [HttpPost]
+
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> AddInputVariable([Bind("InputVariables")] Module module)
         {
