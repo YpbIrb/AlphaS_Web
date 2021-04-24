@@ -1,5 +1,6 @@
 ﻿using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace AlphaS_Web.Controllers.API
 {
     [Route("api/Experiments")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class ExperimentsApiController
     {
         private readonly ExperimentContext _context;

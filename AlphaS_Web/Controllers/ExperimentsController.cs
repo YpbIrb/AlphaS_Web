@@ -3,6 +3,7 @@ using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
 using AlphaS_Web.Models.Utils;
 using AlphaS_Web.Utils;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -53,7 +54,7 @@ namespace AlphaS_Web.Controllers
             ViewBag.Presets = new SelectList(_presets.GetAll(), "PresetName", "PresetName");
             return View();
         }
-
+        
         // POST: ExperimentsController/Create
         [HttpPost]
         [Authorize]

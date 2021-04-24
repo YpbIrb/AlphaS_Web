@@ -1,6 +1,8 @@
 ﻿using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
 using AlphaS_Web.Models.Requests;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ namespace AlphaS_Web.Controllers.API
 {
     [Route("api/Participants")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "JwtBearer")]
     public class ParticipantsApiController : Controller
     {
 
@@ -23,6 +26,7 @@ namespace AlphaS_Web.Controllers.API
 
         //https://localhost:5001/api/Participants
 
+        
         [HttpGet]
         public ActionResult<List<Participant>> GetAll() => _context.Get();
 

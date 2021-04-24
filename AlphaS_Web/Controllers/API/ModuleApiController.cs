@@ -10,6 +10,7 @@ namespace AlphaS_Web.Controllers.API
 {
     [Route("api/Modules")]
     [ApiController]
+
     public class ModuleApiController : Controller
     {
         private readonly ModuleContext _context;

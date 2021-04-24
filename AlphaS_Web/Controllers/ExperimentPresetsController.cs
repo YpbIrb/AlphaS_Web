@@ -3,6 +3,7 @@ using AlphaS_Web.Contexts;
 using AlphaS_Web.Models;
 using AlphaS_Web.Models.Utils;
 using AlphaS_Web.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace AlphaS_Web.Controllers
 {
+    
     public class ExperimentPresetsController : Controller
     {
         ExperimentPresetContext _context;
@@ -40,6 +42,7 @@ namespace AlphaS_Web.Controllers
         }
 
         // GET: ExperimentPresetsController/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
@@ -48,6 +51,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ExperimentPresetsController/Create
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind("PresetName, Modules")] ExperimentPresetViewModel experimentPresetViewModel)
         {
@@ -74,6 +78,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ExperimentPresetsController/Edit/5
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -88,6 +93,7 @@ namespace AlphaS_Web.Controllers
         }
 
         // GET: ExperimentPresetsController/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             return View();
@@ -95,6 +101,7 @@ namespace AlphaS_Web.Controllers
 
         // POST: ExperimentPresetsController/Delete/5
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
@@ -109,6 +116,7 @@ namespace AlphaS_Web.Controllers
         }
 
         [HttpPost]
+
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> AddModule(int id, [Bind("Modules")] ExperimentPresetViewModel experimentPresetViewModel)
         {
