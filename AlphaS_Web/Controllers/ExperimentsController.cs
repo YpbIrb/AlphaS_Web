@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AlphaS_Web.Controllers
@@ -21,15 +23,17 @@ namespace AlphaS_Web.Controllers
         ExperimentContext _context;
         ModuleContext _modules;
         ExperimentPresetContext _presets;
+        ParticipantContext _participants;
         private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public ExperimentsController(ExperimentContext experimenContext, ModuleContext modules, ExperimentPresetContext presets, UserManager<ApplicationUser> userManager)
+        public ExperimentsController(ExperimentContext experimenContext, ModuleContext modules, ExperimentPresetContext presets, ParticipantContext participants, UserManager<ApplicationUser> userManager)
         {
             _context = experimenContext;
             _modules = modules;
             _presets = presets;
             _userManager = userManager;
+            _participants = participants;
         }
 
         // GET: ExperimentsController
@@ -41,7 +45,7 @@ namespace AlphaS_Web.Controllers
 
         public ActionResult FilterByPreset(string id)
         {
-
+            ViewBag.PresetName = id;
             return View(_context.GetAll().Where(exp => exp.PresetName == id));
         }
 
@@ -86,6 +90,50 @@ namespace AlphaS_Web.Controllers
                 ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
                 return View();
             }
+        }
+
+        [HttpGet]
+        public ActionResult DownloadCsvByPreset(string id)
+        {
+
+            ExperimentPreset preset = _presets.Find(id);
+            List<Experiment> experiments = _context.GetAll().Where(exp => exp.PresetName == id).ToList();
+
+            byte[] byteArr = Encoding.UTF8.GetBytes(CSVConverter.GetCSVForPresetExperiments(preset, experiments));
+            string mimeType = "text/plain";
+            return new FileContentResult(byteArr, mimeType)
+            {
+                FileDownloadName = id + ".txt"
+            };
+        }
+
+
+        [HttpGet]
+        public ActionResult DownloadCsvWithParticipantsByPreset(string id)
+        {
+
+
+            ExperimentPreset preset = _presets.Find(id);
+            List<Experiment> experiments = _context.GetAll().Where(exp => exp.PresetName == id).ToList();
+            List<Participant> participants = _participants.Get();
+
+            List<ExperimentWithParticipantsInfo> experimentWithParticipants = new List<ExperimentWithParticipantsInfo>();
+
+            foreach (Experiment experiment in experiments)
+            {
+                ExperimentWithParticipantsInfo experimentWithParticipantsInfo = new ExperimentWithParticipantsInfo();
+                experimentWithParticipantsInfo.experiment = experiment;
+                experimentWithParticipantsInfo.firstParticipant = participants.Find(part => part.ParticipantId == experiment.FirstParticipant.ParticipantId);
+                experimentWithParticipantsInfo.secondParticipant = participants.Find(part => part.ParticipantId == experiment.SecondParticipant.ParticipantId);
+                experimentWithParticipants.Add(experimentWithParticipantsInfo);
+            }
+
+            byte[] byteArr = Encoding.UTF8.GetBytes(CSVConverter.GetCSVWithParticipantsForPresetExperiments(preset, experimentWithParticipants));
+            string mimeType = "text/plain";
+            return new FileContentResult(byteArr, mimeType)
+            {
+                FileDownloadName = id + "_WithParticipants.txt"
+            };
         }
 
         // GET: ExperimentsController/Edit/5

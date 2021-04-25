@@ -4,11 +4,17 @@
     ViewData["Title"] = "FilterByPreset";
 }
 
-<h1>FilterByPreset</h1>
+<h1>@("Filter By preset : " + ViewBag.PresetName)</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <input class="btn btn-primary" type="button" id="btnDownloadCSV" value="Download CSV" />
 </p>
+
+<p>
+    <input class="btn btn-primary" type="button" id="btnDownloadCSVWithParticipants" value="Download CSV with participants info" />
+</p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -31,29 +37,58 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExperimentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OperatorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PresetName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishTime)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ExperimentId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ExperimentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ExperimentId })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExperimentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OperatorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ExperimentId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ExperimentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ExperimentId })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $("#btnDownloadCSV").on('click', function () {
+            console.log("Downloading CSV");
+            var PresetName = '@ViewBag.PresetName';
+            var neaded_url = "/Experiments/DownloadCsvByPreset/" + PresetName;
+            console.log("Downloading by preset " + neaded_url);
+            window.open(neaded_url)
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#btnDownloadCSVWithParticipants").on('click', function () {
+            console.log("Downloading CSV");
+            var PresetName = '@ViewBag.PresetName';
+            var neaded_url = "/Experiments/DownloadCsvWithParticipantsByPreset/" + PresetName;
+            console.log("Downloading by preset " + neaded_url);
+            window.open(neaded_url)
+        });
+    </script>
+
+}
