@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AlphaS_Web.Models.Experiment>
+
+@{
+    ViewData["Title"] = "FilterByPreset";
+}
+
+<h1>FilterByPreset</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExperimentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PresetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExperimentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PresetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ExperimentId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ExperimentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ExperimentId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

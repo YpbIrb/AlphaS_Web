@@ -9,6 +9,18 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="form-group">
+    <form asp-action="FilterByPreset" id="form">
+        <div class="col-md-6">
+            @Html.DropDownList("id", (IEnumerable<SelectListItem>)ViewBag.Presets, "Choose Preset", htmlAttributes: new { @class = "form-control", @id = "PresetName" })
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-primary" type="button" id="btnFilterByPreset" value="Filter by preset" />
+        </div>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -31,29 +43,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExperimentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OperatorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PresetName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishTime)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ExperimentId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ExperimentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ExperimentId })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExperimentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OperatorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PresetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ExperimentId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ExperimentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ExperimentId })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $("#btnFilterByPreset").on('click', function () {
+            console.log("Filtereing preset");
+            var ddl = document.getElementById("PresetName");
+            var SelVal = ddl.value;
+            console.log("SelVal = " + SelVal);
+            var neaded_url = "/Experiments/FilterByPreset/" + SelVal;
+            console.log("Filtereing by preset " + neaded_url);
+            window.open(neaded_url, "_self")
+        });
+    </script>
+}

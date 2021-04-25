@@ -35,9 +35,16 @@ namespace AlphaS_Web.Controllers
         // GET: ExperimentsController
         public ActionResult Index()
         {
-
+            ViewBag.Presets = new SelectList(_presets.GetAll(), "PresetName", "PresetName");
             return View(_context.GetAll());
         }
+
+        public ActionResult FilterByPreset(string id)
+        {
+
+            return View(_context.GetAll().Where(exp => exp.PresetName == id));
+        }
+
 
         // GET: ExperimentsController/Details/5
         public ActionResult Details(int id)
@@ -127,6 +134,8 @@ namespace AlphaS_Web.Controllers
                 return View();
             }
         }
+
+
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
