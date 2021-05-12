@@ -9,7 +9,7 @@
 <h4>ExperimentPreset</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create" id="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -23,7 +23,6 @@
             </div>
 
             @Html.DropDownList("ModuleName", (IEnumerable<SelectListItem>)ViewBag.Modules, "Choose Module", htmlAttributes: new { @class = "form-control", @id = "ModuleName" })
-
 
             <div class="form-group">
                 <div class="col-md-4">

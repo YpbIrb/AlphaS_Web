@@ -102,29 +102,6 @@ namespace AlphaS_Web.Controllers
             }
         }
 
-        /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("Birth_Date, Gender, Nationality, AdditionalInfo")] Participant participant)
-        {
-
-            Console.WriteLine("In Edit with Participant. id = " + id);
-
-            try
-            {
-                ParticipantCreateRequest participantCreateRequest = new ParticipantCreateRequest(participant.Birth_Date, participant.Gender, participant.Nationality, participant.AddtitionalInfo);
-                Participant part = _context.Update(id, participantCreateRequest);
-
-                return View(id);
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
-
-
         // GET: ParticipantController/Delete/5
         public ActionResult Delete(int id)
         {

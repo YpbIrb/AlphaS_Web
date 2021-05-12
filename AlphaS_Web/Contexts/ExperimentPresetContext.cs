@@ -52,7 +52,8 @@ namespace AlphaS_Web.Contexts
         public ExperimentPreset Find(string name) =>
             _presets.Find(preset => preset.PresetName == name).SingleOrDefault();
 
-
+        public void Delete(string id) =>
+            _presets.DeleteOne(preset => preset.PresetName == id);
 
     }
 }

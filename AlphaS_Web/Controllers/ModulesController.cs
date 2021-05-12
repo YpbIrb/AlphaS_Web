@@ -54,8 +54,8 @@ namespace AlphaS_Web.Controllers
 
                 Console.WriteLine("Adding Module ModuleName : " + module.ModuleName);
 
-                _context.Create(module);
-                return RedirectToAction(nameof(Index));
+                Module new_module = _context.Create(module);
+                return RedirectToAction("Details", new { id = new_module.ModuleId});
             }
             catch
             {
@@ -63,6 +63,8 @@ namespace AlphaS_Web.Controllers
                 return View();
             }
         }
+
+        /*
 
         [Authorize]
         // GET: ModulesController/Edit/5
@@ -87,6 +89,7 @@ namespace AlphaS_Web.Controllers
             }
         }
 
+
         // GET: ModulesController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -101,6 +104,7 @@ namespace AlphaS_Web.Controllers
         {
             try
             {
+                _context.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -108,11 +112,9 @@ namespace AlphaS_Web.Controllers
                 return View();
             }
         }
-
-
-        
+        */
+       
         [HttpPost]
-
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> AddInputVariable([Bind("InputVariables")] Module module)
         {
@@ -129,25 +131,5 @@ namespace AlphaS_Web.Controllers
             return PartialView("OutputVariables", module);
         }
 
-        /*
-        private Module GetModuleFromModuleFromPage(ModuleFromPage moduleFromPage)
-        {
-            Module res = new Module(moduleFromPage.ModuleId, moduleFromPage.ModuleName, 
-                                    moduleFromPage.ModuleTypeName, moduleFromPage.PathToExe, moduleFromPage.Description);
-
-
-            foreach(MyKeyValuePair pair in moduleFromPage.InputVariables)
-            {
-                res.InputVariables.Add(pair.Key, pair.Value);
-            }
-
-            foreach (MyKeyValuePair pair in moduleFromPage.OutputVariables)
-            {
-                res.OutputVariables.Add(pair.Key, pair.Value);
-            }
-
-            return res;
-        }
-        */
     }
 }

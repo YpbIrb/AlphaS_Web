@@ -63,5 +63,8 @@ namespace AlphaS_Web.Contexts
         public Module Find(string moduleName) =>
             _modules.Find(module => module.ModuleName == moduleName).SingleOrDefault();
 
+        public void Delete(int id) =>
+            _modules.DeleteOne(part => part.ModuleId == id);
+
     }
 }

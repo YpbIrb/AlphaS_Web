@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="AlphaS_Web.Controllers.ExperimentsController">
+    <Position X="6.25" Y="2.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABgAAAAABFICAAAAAAQAAAAFAAEACAAFAAAAAIAA=</HashCode>
+      <FileName>Controllers\ExperimentsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+      <Field Name="_modules" />
+      <Field Name="_presets" />
+      <Field Name="_participants" />
+      <Field Name="_userManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AlphaS_Web.Contexts.CounterContext" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Contexts\CounterContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Contexts.ExperimentContext">
+    <Position X="3" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAAAAAAAAAAAAAIAAAAAIAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>Contexts\ExperimentContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="counterContext" />
+      <Field Name="_experiments" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AlphaS_Web.Contexts.ExperimentPresetContext" Collapsed="true">
+    <Position X="9" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAEAAAAAAAAAAAAAAIAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>Contexts\ExperimentPresetContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Contexts.ModuleContext" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAACAAAAAAAAAAAAIAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>Contexts\ModuleContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Contexts.ParticipantContext" Collapsed="true">
+    <Position X="6.25" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAAAAAIBAAAAAAAAAAAkIAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Contexts\ParticipantContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.UserManager&lt;TUser&gt;" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="AlphaS_Web.Models.Utils.ExperimentViewModel">
+    <Position X="7" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Models\Utils\ExperimentViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Modules" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="AlphaS_Web.Models.Experiment">
+    <Position X="4.5" Y="7.5" Width="2" />
+    <AssociationLine Name="FirstParticipant" Type="AlphaS_Web.Models.ParticipantInExperiment" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="8.615" />
+        <Point X="3.296" Y="8.615" />
+        <Point X="3.296" Y="8.625" />
+        <Point X="2.75" Y="8.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgABACAAAAAAAAAABAAAAQIAAAAAAAAIAAEAAQAAA=</HashCode>
+      <FileName>Models\Experiment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FirstParticipant" />
+      <Property Name="SecondParticipant" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Modules" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="AlphaS_Web.Utils.CSVConverter">
+    <Position X="10.75" Y="3.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAIAAAAAAAAAABAABAAAAAAA=</HashCode>
+      <FileName>Utils\CSVConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Utils.ViewModelConverter">
+    <Position X="6.75" Y="10.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAACAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Utils\ViewModelConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Controllers.API.ExperimentsApiController">
+    <Position X="0.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABAAAAAAAAAAAAAAIAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>Controllers\API\ExperimentsApiController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AlphaS_Web.Models.ParticipantInExperiment">
+    <Position X="0.75" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAIAAAAAAAAA=</HashCode>
+      <FileName>Models\ParticipantInExperiment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Models.ModuleInExperiment">
+    <Position X="0.5" Y="9.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAACAAAAAAAAAAAAAAAAIAAECAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModuleInExperiment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AlphaS_Web.Models.Utils.ModuleInExperimentViewModel">
+    <Position X="10.25" Y="7.5" Width="3.25" />
+    <AssociationLine Name="OutputValues" Type="AlphaS_Web.Models.Utils.MyKeyValuePair">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.036" Y="0.409" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAECAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Utils\ModuleInExperimentViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="InputValues" />
+      <Property Name="OutputValues" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="AlphaS_Web.Models.Utils.MyKeyValuePair" Collapsed="true">
+    <Position X="11.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\Utils\MyKeyValuePair.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MongoDB.Driver.IMongoCollection&lt;TDocument&gt;" Collapsed="true">
+    <Position X="3.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

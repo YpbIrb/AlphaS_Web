@@ -9,12 +9,12 @@
 <h4>Experiment</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ExperimentId" class="control-label"></label>
-                <input asp-for="ExperimentId" class="form-control" readonly/>
+                <input asp-for="ExperimentId" class="form-control" readonly />
                 <span asp-validation-for="ExperimentId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,8 +32,23 @@
                 <input asp-for="FinishTime" class="form-control" />
                 <span asp-validation-for="FinishTime" class="text-danger"></span>
             </div>
+
+
+@Html.DisplayNameFor(model => model.FirstParticipant)
+        @Html.EditorFor(model => model.FirstParticipant)
+
+        @Html.DisplayNameFor(model => model.SecondParticipant)
+        @Html.EditorFor(model => model.SecondParticipant)
+
+        @Html.DisplayNameFor(model => model.Modules)
+
+        @foreach (ModuleInExperiment module in Model.Modules)
+        {
+            @Html.DisplayFor(model => module)
+        }
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save Experiment" class="btn btn-primary" />
             </div>
         </form>
     </div>

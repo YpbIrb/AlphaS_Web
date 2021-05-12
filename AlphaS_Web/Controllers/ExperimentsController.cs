@@ -80,9 +80,9 @@ namespace AlphaS_Web.Controllers
 
                 experiment.OperatorId = user_id;
 
-                _context.Create(experiment);
+                Experiment exp = _context.Create(experiment);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = exp.ExperimentId });
             }
             catch
             {
@@ -140,18 +140,20 @@ namespace AlphaS_Web.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_context.Find(id));
         }
 
         // POST: ExperimentsController/Edit/5
         [HttpPost]
         [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, [Bind("ExperimentId, OperatorId, StartTime, FinishTime, FirstParticipant, SecondParticipant, PresetName, Modules")] Experiment experiment)
         {
+            Console.WriteLine("In Edit Experiment. id = " + id);
             try
             {
-                return RedirectToAction(nameof(Index));
+                _context.Update(id, experiment);
+                return RedirectToAction("Details", new { id = id });
             }
             catch
             {

@@ -9,10 +9,10 @@ namespace AlphaS_Web.Models.Utils
     public class ExperimentViewModel
     {
 
-        [DisplayName("Modules")]
+        [DisplayName("Модули")]
         public List<ModuleInExperimentViewModel> Modules { get; set; }
 
-        [DisplayName("Preset")]
+        [DisplayName("Пресет")]
         public string PresetName { get; set; }
 
         public ExperimentViewModel()

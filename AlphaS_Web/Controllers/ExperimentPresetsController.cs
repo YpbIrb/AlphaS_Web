@@ -27,8 +27,6 @@ namespace AlphaS_Web.Controllers
         }
 
 
-
-
         // GET: ExperimentPresetsController
         public ActionResult Index()
         {
@@ -60,7 +58,7 @@ namespace AlphaS_Web.Controllers
                 ExperimentPreset experimentPreset = ViewModelConverter.PresetFromViewModel(experimentPresetViewModel, _modules);
                 _context.Create(experimentPreset);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = experimentPreset.PresetName });
             }
             catch
             {
@@ -70,6 +68,7 @@ namespace AlphaS_Web.Controllers
             }
         }
 
+        /*
         // GET: ExperimentPresetsController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -94,7 +93,7 @@ namespace AlphaS_Web.Controllers
 
         // GET: ExperimentPresetsController/Delete/5
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             return View();
         }
@@ -103,10 +102,11 @@ namespace AlphaS_Web.Controllers
         [HttpPost]
         [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
+                _context.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -114,9 +114,10 @@ namespace AlphaS_Web.Controllers
                 return View();
             }
         }
+        */
+
 
         [HttpPost]
-
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> AddModule(int id, [Bind("Modules")] ExperimentPresetViewModel experimentPresetViewModel)
         {
