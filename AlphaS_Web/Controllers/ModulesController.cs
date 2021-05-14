@@ -4,6 +4,7 @@ using AlphaS_Web.Models.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,10 +58,21 @@ namespace AlphaS_Web.Controllers
                 Module new_module = _context.Create(module);
                 return RedirectToAction("Details", new { id = new_module.ModuleId});
             }
-            catch
+            catch(MongoWriteException e)
             {
-                //todo нормальный отлов ошибки, и предупреждение о том, что не правильно
-                return View();
+                Console.WriteLine(e.Message);
+                if (e.WriteError.Category == ServerErrorCategory.DuplicateKey)
+                {
+                    if (e.WriteError.Message.Contains("Module_Name"))
+                    {
+                        ModelState.AddModelError("", "Модуль с таким названием уже существует. Используйте другое.");
+                    }
+                    if (e.WriteError.Message.Contains("Path_To_Exe"))
+                    {
+                        ModelState.AddModelError("", "Модуль с таким названием файла уже существует. Используйте другое");
+                    }
+                }
+                return View(module);
             }
         }
 

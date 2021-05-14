@@ -78,7 +78,7 @@ namespace AlphaS_Web
                         ValidateAudience = true,
                         ValidAudience = "AlphaSClient",
 
-                        ValidateLifetime = true,
+                        ValidateLifetime = false,
 
                         ClockSkew = TimeSpan.FromSeconds(5)
                     };

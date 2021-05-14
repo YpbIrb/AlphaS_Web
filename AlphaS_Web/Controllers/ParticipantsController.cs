@@ -54,14 +54,15 @@ namespace AlphaS_Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Create(participantCR);
+                    Participant new_part = _context.Create(participantCR);
+                    return RedirectToAction("Details", new { id = new_part.ParticipantId });
                 } 
                 else
                 {
                     ViewBag.Genders = Genders;
                     return View();
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
             catch
             {

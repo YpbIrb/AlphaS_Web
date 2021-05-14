@@ -147,16 +147,38 @@ namespace AlphaS_Web.Controllers
         [HttpPost]
         [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("ExperimentId, OperatorId, StartTime, FinishTime, FirstParticipant, SecondParticipant, PresetName, Modules")] Experiment experiment)
+        public ActionResult Edit(int id, [Bind("ExperimentId, OperatorId, StartTime, FinishTime, FirstParticipant, SecondParticipant, PresetName")] Experiment experiment)
         {
             Console.WriteLine("In Edit Experiment. id = " + id);
             try
             {
+
+                
+                Experiment old_exp = _context.Find(id);
+
+                Participant first_part = _participants.Find(experiment.FirstParticipant.ParticipantId);
+                Participant second_part = _participants.Find(experiment.SecondParticipant.ParticipantId);
+
+                if(first_part == null || second_part == null)
+                {
+                    if (first_part == null)
+                    {
+                        ModelState.AddModelError("", "Не существует испытуемого с id = " + experiment.FirstParticipant.ParticipantId);
+                    }
+                    if (second_part == null)
+                    {
+                        ModelState.AddModelError("", "Не существует испытуемого с id = " + experiment.SecondParticipant.ParticipantId);
+                    }
+                    return View(experiment);
+                }
+
+                experiment.Modules = old_exp.Modules;
                 _context.Update(id, experiment);
                 return RedirectToAction("Details", new { id = id });
             }
             catch
             {
+                ModelState.AddModelError("", "Произошла непредвиденная ошибка");
                 return View();
             }
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,11 +61,19 @@ namespace AlphaS_Web.Controllers
 
                 return RedirectToAction("Details", new { id = experimentPreset.PresetName });
             }
-            catch
+            catch (MongoWriteException e)
             {
                 //todo нормальный отлов ошибки, и предупреждение о том, что не правильно
                 ViewBag.Modules = new SelectList(_modules.GetAll(), "ModuleId", "ModuleName");
-                return View();
+                Console.WriteLine(e.Message);
+                if (e.WriteError.Category == ServerErrorCategory.DuplicateKey)
+                {
+                    if (e.WriteError.Message.Contains("Preset_Name"))
+                    {
+                        ModelState.AddModelError("", "Пресет с таким названием уже существует. Используйте другое.");
+                    }
+                }
+                return View(experimentPresetViewModel);
             }
         }
 

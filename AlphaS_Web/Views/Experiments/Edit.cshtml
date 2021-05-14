@@ -18,6 +18,11 @@
                 <span asp-validation-for="ExperimentId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="PresetName" class="control-label"></label>
+                <input asp-for="PresetName" class="form-control" readonly />
+                <span asp-validation-for="PresetName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="OperatorId" class="control-label"></label>
                 <input asp-for="OperatorId" class="form-control" />
                 <span asp-validation-for="OperatorId" class="text-danger"></span>
@@ -34,18 +39,18 @@
             </div>
 
 
-@Html.DisplayNameFor(model => model.FirstParticipant)
-        @Html.EditorFor(model => model.FirstParticipant)
+            @Html.DisplayNameFor(model => model.FirstParticipant)
+            @Html.EditorFor(model => model.FirstParticipant)
 
-        @Html.DisplayNameFor(model => model.SecondParticipant)
-        @Html.EditorFor(model => model.SecondParticipant)
+            @Html.DisplayNameFor(model => model.SecondParticipant)
+            @Html.EditorFor(model => model.SecondParticipant)
 
-        @Html.DisplayNameFor(model => model.Modules)
+            @Html.DisplayNameFor(model => model.Modules)
 
-        @foreach (ModuleInExperiment module in Model.Modules)
-        {
-            @Html.DisplayFor(model => module)
-        }
+            @foreach (ModuleInExperiment module in Model.Modules)
+            {
+                @Html.DisplayFor(model => module)
+            }
 
             <div class="form-group">
                 <input type="submit" value="Save Experiment" class="btn btn-primary" />
