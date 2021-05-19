@@ -1,0 +1,14 @@
+name: Publish Docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ypbirb/alphas_web
+        username: ypbirb
+        password: SHA256:UA52A+JRmDvegaJPvFdNa55fgcMpj4/nwqGxCdZpY/4
+        workdir: AlphaS_Web
