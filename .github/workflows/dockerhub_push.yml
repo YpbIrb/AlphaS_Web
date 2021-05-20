@@ -1,5 +1,8 @@
 name: Publish Docker
-on: [push]
+on: 
+  push:
+    paths:
+      - '!.github/workflows/heroku_deploy.yml'
 jobs:
   build:
     runs-on: ubuntu-latest
