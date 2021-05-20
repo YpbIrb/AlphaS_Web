@@ -10,5 +10,5 @@ jobs:
       with:
         name: ypbirb/alphas_web
         username: ypbirb
-        password: SHA256:UA52A+JRmDvegaJPvFdNa55fgcMpj4/nwqGxCdZpY/4
+        password: UA52A+JRmDvegaJPvFdNa55fgcMpj4/nwqGxCdZpY/4
         workdir: AlphaS_Web
