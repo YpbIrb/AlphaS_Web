@@ -9,6 +9,6 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: ypbirb/alphas_web
-        username: ypbirb
-        password: UA52A+JRmDvegaJPvFdNa55fgcMpj4/nwqGxCdZpY/4
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
         workdir: AlphaS_Web
