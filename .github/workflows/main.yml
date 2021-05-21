@@ -1,4 +1,4 @@
-name: Publish Docker
+name: Publish Docker and DO
 on: 
   push:
     paths:
