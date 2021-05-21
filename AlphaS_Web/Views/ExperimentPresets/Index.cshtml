@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Experiment Presets</h1>
+<h1>Пресеты экспериментов</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Создать пресет</a>
 </p>
 <table class="table">
     <thead>
@@ -25,7 +25,7 @@
                 @Html.DisplayFor(modelItem => item.PresetName)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new {  id=item.PresetName  }) |
+                @Html.ActionLink("Детали", "Details", new {  id=item.PresetName  }) |
             </td>
         </tr>
 }

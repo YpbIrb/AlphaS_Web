@@ -29,6 +29,11 @@ namespace AlphaS_Web.Controllers
             return View(_context.GetAll());
         }
 
+        public ActionResult HowToAdd()
+        {
+            return View();
+        }
+
         // GET: ModulesController/Details/5
         public ActionResult Details(int id)
         {

@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Создание эксперимента</h1>
 
-<h4>Experiment</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -17,24 +16,24 @@
                 @Html.EditorFor(model => model.Modules)
             </div>
 
-            @Html.DropDownList("ModuleName", (IEnumerable<SelectListItem>)ViewBag.Modules, "Choose Module", htmlAttributes: new { @class = "form-control", @id = "ModuleName" })
+            @Html.DropDownList("ModuleName", (IEnumerable<SelectListItem>)ViewBag.Modules, "Выберите модуль", htmlAttributes: new { @class = "form-control", @id = "ModuleName" })
 
-            @Html.DropDownList("PresetName", (IEnumerable<SelectListItem>)ViewBag.Presets, "Choose Preset", htmlAttributes: new { @class = "form-control", @id = "PresetName" })
+            @Html.DropDownList("PresetName", (IEnumerable<SelectListItem>)ViewBag.Presets, "Выберите шаблон", htmlAttributes: new { @class = "form-control", @id = "PresetName" })
             <div class="form-group">
                 <div class="col-md-4">
-                    <input class="btn btn-default" type="button" id="btnAddModule" value="Add Module" />
+                    <input class="btn btn-default" type="button" id="btnAddModule" value="Добавить модуль" />
                 </div>
                 <div class="col-md-4">
-                    <input class="btn btn-default" type="button" id="btnAddPreset" value="Add Preset" />
+                    <input class="btn btn-default" type="button" id="btnAddPreset" value="Добавить шаблон" />
                 </div>
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
 
 

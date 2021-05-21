@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Module</h4>
+<h1>Создание модуля</h1>
 <hr />
 <div class="row">
     <div class="col-md-12">
@@ -44,14 +42,14 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4">
-                    <input class="btn btn-default" type="button" id="btnInputAdd" value="Add inputVal" />
+                <div class="col-md-6">
+                    <input class="btn btn-default" type="button" id="btnInputAdd" value="Добавить входную переменную" />
                 </div>
-                <div class="col-md-4">
-                    <input class="btn btn-default" type="button" id="btnOutputAdd" value="Add OutputVal" />
+                <div class="col-md-6">
+                    <input class="btn btn-default" type="button" id="btnOutputAdd" value="Добавить выходную переменную" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Создать" class="btn btn-primary" />
                 </div>
             </div>
 
@@ -60,7 +58,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
 
 @section Scripts {
@@ -75,7 +73,6 @@
                 type: "POST",
                 url: '/Modules/AddInputVariable',
                 success: function (partialView) {
-                    console.log("partialView: " + partialView);
                     $('#inputValuesContainer').html(partialView);
                 }
             });
@@ -90,7 +87,6 @@
                 type: "POST",
                 url: '/Modules/AddOutputVariable',
                 success: function (partialView) {
-                    console.log("partialView: " + partialView);
                     $('#outputValuesContainer').html(partialView);
                 }
             });

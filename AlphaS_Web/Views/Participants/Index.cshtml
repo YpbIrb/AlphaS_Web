@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Participants</h1>
+<h1>Испытуемые</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Добавить нового</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +43,8 @@
                 @Html.DisplayFor(modelItem => item.Nationality)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.ParticipantId  }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ParticipantId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ParticipantId })
+                @Html.ActionLink("Редактировать", "Edit", new {  id=item.ParticipantId  }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.ParticipantId }) |
             </td>
         </tr>
 }
