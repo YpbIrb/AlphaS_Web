@@ -23,6 +23,7 @@ jobs:
       - name: Deploy to Digital Ocean droplet via SSH action
         uses: appleboy/ssh-action@v0.1.3
         with:
+          envs: IMAGE_NAME, COMPOSE_FOLDER
           HOST: ${{ secrets.DO_AlphaSWeb_HOST }}
           USERNAME: ${{ secrets.DO_AlphaSWeb_USERNAME }}
           PASSWORD: ${{ secrets.DO_AlphaSWeb_PASS }}
