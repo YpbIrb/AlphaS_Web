@@ -28,13 +28,13 @@ jobs:
           PASSWORD: ${{ secrets.DO_AlphaSWeb_PASS }}
           script: |
             # Go to folder with docker-compose.yml 
-            cd $(echo $COMPOSE_FOLDER)
+            cd $COMPOSE_FOLDER
             
             # Stop running container
             docker-compose down
 
             # Pull new image
-            docker pull $(echo $IMAGE_NAME)
+            docker pull $IMAGE_NAME
             
             # Pull full docker-compose
             docker-compose pull
