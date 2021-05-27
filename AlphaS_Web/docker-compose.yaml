@@ -10,22 +10,18 @@ services:
       - ${WEBAPP_STORAGE_HOME}/site:/data/db
       #- ./data:/data/db
     ports:
-      - "27017:27017"
-    #environment:
-     #MONGO_INITDB_ROOT_USERNAME: root
-     #MONGO_INITDB_ROOT_PASSWORD: pass
+      - "48666:48666"
+
 
       
   mongo-express:
     image: mongo-express
     restart: always
     ports:
-      - 8081:8081
+      - 48990:48990
     depends_on:
       - mongo
-    #environment:
-     #ME_CONFIG_MONGODB_ADMINUSERNAME: root
-     #ME_CONFIG_MONGODB_ADMINPASSWORD: pass
+
 
   web:
         build: 
