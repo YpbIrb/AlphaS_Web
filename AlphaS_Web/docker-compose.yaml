@@ -10,7 +10,7 @@ services:
       - ${WEBAPP_STORAGE_HOME}/site:/data/db
       #- ./data:/data/db
     ports:
-      - "48666:48666"
+      - "48666:27017"
 
 
       
@@ -18,7 +18,7 @@ services:
     image: mongo-express
     restart: always
     ports:
-      - 48990:48990
+      - "48990:8081"
     depends_on:
       - mongo
 
@@ -28,7 +28,7 @@ services:
             context: .
             dockerfile: Dockerfile
         ports:
-            - "8000:80"
+            - "80:80"
             - "44348:443"
         depends_on:
             - mongo
