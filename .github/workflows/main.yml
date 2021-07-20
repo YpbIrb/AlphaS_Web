@@ -16,7 +16,7 @@ jobs:
   publish_DO:
     env:
       IMAGE_NAME: ypbirb/alphas_web
-      COMPOSE_FOLDER: AlphaS_Web
+      COMPOSE_FOLDER: AlphaS
     needs: build_publish_dockerhub
     runs-on: ubuntu-latest
     steps:
