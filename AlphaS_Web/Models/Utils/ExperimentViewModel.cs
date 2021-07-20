@@ -12,7 +12,7 @@ namespace AlphaS_Web.Models.Utils
         [DisplayName("Модули")]
         public List<ModuleInExperimentViewModel> Modules { get; set; }
 
-        [DisplayName("Пресет")]
+        [DisplayName("Шаблон")]
         public string PresetName { get; set; }
 
         public ExperimentViewModel()

@@ -13,7 +13,7 @@
 <div class="form-group">
     <form asp-action="FilterByPreset" id="form">
         <div class="col-md-6">
-            @Html.DropDownList("id", (IEnumerable<SelectListItem>)ViewBag.Presets, "Выберите пресет", htmlAttributes: new { @class = "form-control", @id = "PresetName" })
+            @Html.DropDownList("id", (IEnumerable<SelectListItem>)ViewBag.Presets, "Выберите шаблон", htmlAttributes: new { @class = "form-control", @id = "PresetName" })
         </div>
         <div class="col-md-4">
             <input class="btn btn-primary" type="button" id="btnFilterByPreset" value="Отфильтровать" />

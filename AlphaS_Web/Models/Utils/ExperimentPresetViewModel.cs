@@ -9,7 +9,7 @@ namespace AlphaS_Web.Models.Utils
     public class ExperimentPresetViewModel
     {
 
-        [DisplayName("Название пресета")]
+        [DisplayName("Название шаблона")]
         public string PresetName { get; set; }
 
         [DisplayName("Модули")]

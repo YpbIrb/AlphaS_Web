@@ -4,14 +4,14 @@
     ViewData["Title"] = "FilterByPreset";
 }
 
-<h1>@("Filter By preset : " + ViewBag.PresetName)</h1>
+<h1>@("Отфильтровано по шаблону : " + ViewBag.PresetName)</h1>
 
 <p>
-    <input class="btn btn-primary" type="button" id="btnDownloadCSV" value="Download CSV" />
+    <input class="btn btn-primary" type="button" id="btnDownloadCSV" value="Скачать CSV" />
 </p>
 
 <p>
-    <input class="btn btn-primary" type="button" id="btnDownloadCSVWithParticipants" value="Download CSV with participants info" />
+    <input class="btn btn-primary" type="button" id="btnDownloadCSVWithParticipants" value="Скачать CSV с информацией об испытуемых" />
 </p>
 
 
@@ -56,8 +56,8 @@
                     @Html.DisplayFor(modelItem => item.FinishTime)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ExperimentId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ExperimentId })
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.ExperimentId }) |
+                    @Html.ActionLink("Детали", "Details", new { id = item.ExperimentId })
                 </td>
             </tr>
         }

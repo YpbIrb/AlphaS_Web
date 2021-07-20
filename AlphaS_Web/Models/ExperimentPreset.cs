@@ -19,13 +19,13 @@ namespace AlphaS_Web.Models
 
         [BsonElement("Preset_Name")]
         [JsonPropertyName("Preset_Name")]
-        [DisplayName("Название пресета")]
+        [DisplayName("Название шаблона")]
         [Required]
         public string PresetName { get; set; }
 
         [BsonElement("Modules")]
         [JsonPropertyName("Modules")]
-        [DisplayName("Модули в пресете")]
+        [DisplayName("Модули в шаблоне")]
         public List<ModuleInExperiment> Modules { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace AlphaS_Web.Utils
         public static async Task InitializeAsync(UserManager<ApplicationUser> userManager, RoleManager<MongoRole> roleManager, CounterContext counterContext)
         {
             string adminEmail = "adminMail@mail.ru";
-            string adminName = "adminUser";
+            string adminName = "admin";
             string password = "zxczxc";
 
 
@@ -25,7 +25,7 @@ namespace AlphaS_Web.Utils
             if (await userManager.FindByNameAsync(adminName) == null)
             {
                 int new_id = counterContext.GetNextId("user");
-                ApplicationUser admin = new ApplicationUser { UserId = new_id, Email = adminEmail, UserName = adminEmail };
+                ApplicationUser admin = new ApplicationUser { UserId = new_id, Email = adminEmail, UserName = adminName };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {

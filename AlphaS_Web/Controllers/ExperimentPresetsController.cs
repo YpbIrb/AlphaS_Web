@@ -70,7 +70,7 @@ namespace AlphaS_Web.Controllers
                 {
                     if (e.WriteError.Message.Contains("Preset_Name"))
                     {
-                        ModelState.AddModelError("", "Пресет с таким названием уже существует. Используйте другое.");
+                        ModelState.AddModelError("", "Шаблон с таким названием уже существует. Используйте другое.");
                     }
                 }
                 return View(experimentPresetViewModel);

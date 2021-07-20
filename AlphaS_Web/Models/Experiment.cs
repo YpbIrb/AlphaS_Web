@@ -29,7 +29,7 @@ namespace AlphaS_Web.Models
 
         [BsonElement("Preset_Name")]
         [JsonPropertyName("Preset_Name")]
-        [DisplayName("Название пресета")]
+        [DisplayName("Название шаблона")]
         public string PresetName { get; set; }
 
 

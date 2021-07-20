@@ -25,6 +25,7 @@ namespace AlphaS_Web.Models
         [JsonPropertyName("Birth_Date")]
         [BsonElement("Birth_Date")]
         [Required(ErrorMessage = "Birth_Date is required.")]
+        [DataType(DataType.Date)]
         [DisplayName("Дата рождения")]
         public DateTime Birth_Date { get; set; }
 
