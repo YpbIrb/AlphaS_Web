@@ -51,7 +51,6 @@ namespace AlphaS_Web.Controllers.API
 
             Experiment OldExp = _context.Find(id);
             
-
             if (OldExp == null)
             {
                 return new NotFoundResult();
@@ -63,7 +62,6 @@ namespace AlphaS_Web.Controllers.API
                 Experiment res = _context.Update(id, experiment);
                 return res;
             }
-            
             
         }
 
